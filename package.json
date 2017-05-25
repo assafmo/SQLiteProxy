@@ -1,6 +1,6 @@
 {
   "name": "sqlite-rest-proxy",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "HTTP REST proxy for sqlite",
   "main": "main.js",
   "dependencies": {
@@ -8,9 +8,6 @@
     "compression": "latest",
     "express": "latest",
     "sqlite3": "latest"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "sqlite",
@@ -20,5 +17,12 @@
     "json"
   ],
   "author": "assafmo",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/assafmo/sqlite-rest-proxy.git"
+  },
+  "bugs": {
+    "url": "https://github.com/assafmo/sqlite-rest-proxy/issues"
+  },
   "license": "MIT"
 }
