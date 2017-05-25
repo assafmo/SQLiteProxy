@@ -1,0 +1,22 @@
+{
+  "name": "sqlite-rest-proxy",
+  "version": "0.0.1",
+  "description": "HTTP REST proxy for sqlite",
+  "main": "main.js",
+  "dependencies": {
+    "express": "latest",
+    "sqlite3": "latest"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "sqlite",
+    "sql",
+    "rest",
+    "http",
+    "json"
+  ],
+  "author": "assafmo",
+  "license": "MIT"
+}
