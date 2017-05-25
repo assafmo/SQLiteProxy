@@ -4,6 +4,8 @@
   "description": "HTTP REST proxy for sqlite",
   "main": "main.js",
   "dependencies": {
+    "body-parser": "latest",
+    "compression": "latest",
     "express": "latest",
     "sqlite3": "latest"
   },
