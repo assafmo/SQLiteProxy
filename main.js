@@ -5,8 +5,8 @@ const sqliteMode = conf.readonly === true ? sqlite3.OPEN_READONLY : null;
 const sqliteFilePath = conf.db ? conf.db : ':memory:';
 
 const db = new sqlite3.Database(sqliteFilePath, sqliteMode);
-process.on('SIGINT', db.close.bind(db));
-process.on('SIGTERM', db.close.bind(db));
+// process.on('SIGINT', db.close.bind(db));
+// process.on('SIGTERM', db.close.bind(db));
 
 const express = require('express');
 const bodyParser = require('body-parser');
