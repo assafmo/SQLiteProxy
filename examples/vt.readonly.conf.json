@@ -1,0 +1,4 @@
+{
+    "db": "./examples/vt.sqlite",
+    "readonly": true
+}
