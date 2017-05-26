@@ -1,10 +1,11 @@
+# SQLiteProxy
 A simple HTTP JSON proxy for SQLite.  
 This probably should not be exposed to end users. :-)   
   
 [![npm version](https://badge.fury.io/js/sqliteproxy.svg)](https://badge.fury.io/js/sqliteproxy)
 
-# Install
-```bash
+# Installation
+```
 npm install -g sqliteproxy
 ```
 
