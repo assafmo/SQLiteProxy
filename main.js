@@ -1,16 +1,22 @@
+const flags = require('flags');
+flags.defineString('db', ':memory:', 'DB File path');
+flags.defineBoolean('readonly', false, 'Open the database as readonly');
+flags.defineNumber('port', 2048, 'TCP Port to listen on');
+flags.parse();
+
+console.log('db', '=', flags.get('db'))
+console.log('readonly', '=', flags.get('readonly'))
+console.log('port', '=', flags.get('port'))
+
 const sqlite3 = require('sqlite3');
+const sqliteMode = flags.get('readonly') === true ? sqlite3.OPEN_READONLY : null;
 
-const conf = require(process.argv[2]);
-const sqliteMode = conf.readonly === true ? sqlite3.OPEN_READONLY : null;
-const sqliteFilePath = conf.db ? conf.db : ':memory:';
-
-const db = new sqlite3.Database(sqliteFilePath, sqliteMode);
+const db = new sqlite3.Database(flags.get('db'), sqliteMode);
 // process.on('SIGINT', db.close.bind(db));
 // process.on('SIGTERM', db.close.bind(db));
 
 const express = require('express');
 const bodyParser = require('body-parser');
-const port = process.argv[3] || 1357;
 
 const app = express();
 app.use(require('compression')());
@@ -35,4 +41,4 @@ function getSqlExecutor(httpRequestFieldName) {
 app.get('/', getSqlExecutor('query'));
 app.post('/', getSqlExecutor('body'));
 
-app.listen(port);
+app.listen(flags.get('port'));

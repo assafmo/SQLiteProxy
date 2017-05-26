@@ -8,6 +8,7 @@
     "body-parser": "latest",
     "compression": "latest",
     "express": "latest",
+    "flags": "latest",
     "sqlite3": "latest"
   },
   "keywords": [
