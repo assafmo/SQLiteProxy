@@ -126,3 +126,6 @@ $ fg
 [1]  + 23461 running    sqliteproxy
 ^C
 ```
+
+ # License
+ [MIT](./LICENSE.md)
