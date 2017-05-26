@@ -128,4 +128,4 @@ $ fg
 ```
 
  # License
- [MIT](./LICENSE.md)
+ [MIT](/LICENSE.md)
