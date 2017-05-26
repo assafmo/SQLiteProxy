@@ -1,5 +1,5 @@
 A simple HTTP JSON proxy for SQLite.  
-This should probably not be exposed to end users. :-)   
+This probably should not be exposed to end users. :-)   
   
 [![npm version](https://badge.fury.io/js/sqliteproxy.svg)](https://badge.fury.io/js/sqliteproxy)
 
