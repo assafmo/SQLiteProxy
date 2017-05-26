@@ -1,7 +1,8 @@
 {
-  "name": "sqlite-rest-proxy",
+  "title": "SQLiteProxy",
+  "name": "sqliteproxy",
   "version": "0.1.0",
-  "description": "HTTP REST proxy for sqlite",
+  "description": "HTTP JSON Proxy for SQLite",
   "main": "main.js",
   "dependencies": {
     "body-parser": "latest",
