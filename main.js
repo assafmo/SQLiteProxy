@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const flags = require('flags');
 flags.defineString('db', ':memory:', 'DB File path');
 flags.defineBoolean('readonly', false, 'Open the database as readonly');
