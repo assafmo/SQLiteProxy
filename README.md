@@ -1,5 +1,5 @@
 # SQLite HTTP Proxy 
-A simple SQLite proxy using REST API.  
+A simple HTTP JSON proxy for SQLite.  
 This should probably not be exposed to end users. :-) 
 
 # Usage
