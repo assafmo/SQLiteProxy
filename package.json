@@ -1,5 +1,4 @@
 {
-  "title": "SQLiteProxy",
   "name": "sqliteproxy",
   "version": "0.2.4",
   "description": "HTTP JSON Proxy for SQLite",
