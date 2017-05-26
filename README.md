@@ -98,7 +98,7 @@ $ fg
 ```
 
 ## In-Memory DB
-All work will be deleted on process exit.
+All work will be lost on process exit.
 ```
 $ sqliteproxy 
 ^Z
