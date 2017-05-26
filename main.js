@@ -12,8 +12,20 @@ const sqlite3 = require('sqlite3');
 const sqliteMode = flags.get('readonly') === true ? sqlite3.OPEN_READONLY : null;
 
 const db = new sqlite3.Database(flags.get('db'), sqliteMode);
-// process.on('SIGINT', db.close.bind(db));
-// process.on('SIGTERM', db.close.bind(db));
+
+function gracefulExit(signal) {
+    return () => db.close(err => {
+        if (err) {
+            console.error('got', signal)
+            console.error(err)
+            process.exit(1);
+        } else {
+            process.exit(0);
+        }
+    });
+}
+process.on('SIGINT', gracefulExit('SIGINT'));
+process.on('SIGTERM', gracefulExit('SIGTERM'));
 
 const express = require('express');
 const bodyParser = require('body-parser');
