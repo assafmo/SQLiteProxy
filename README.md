@@ -2,9 +2,13 @@
 A simple HTTP JSON proxy for SQLite.  
 This should probably not be exposed to end users. :-) 
 
+# Install
+```bash
+npm install -g sqliteproxy
+```
+
 # Usage
 ```bash
-$ sudo npm install -g sqliteproxy
 $ sqliteproxy --db ./examples/vt.sqlite 
 ^Z
 [1]  + 23436 suspended sqliteproxy --db ./examples/vt.sqlite

@@ -54,7 +54,7 @@ function getSqlExecutor(httpRequestFieldName) {
 
 app.get('/', getSqlExecutor('query'));
 app.post('/', getSqlExecutor('body'));
-app.get('*', (req, res) => res.redirect('/' + req._parsedUrl.search));
-app.post('*', (req, res) => res.redirect('/'));
+app.get('*', (req, res) => res.redirect(308, '/' + req._parsedUrl.search));
+app.post('*', (req, res) => res.redirect(308, '/'));
 
 app.listen(flags.get('port'));
