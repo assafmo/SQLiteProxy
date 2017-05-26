@@ -24,10 +24,10 @@
   "author": "assafmo",
   "repository": {
     "type": "git",
-    "url": "https://github.com/assafmo/sqlite-rest-proxy.git"
+    "url": "https://github.com/assafmo/SQLiteProxy.git"
   },
   "bugs": {
-    "url": "https://github.com/assafmo/sqlite-rest-proxy/issues"
+    "url": "https://github.com/assafmo/SQLiteProxy/issues"
   },
   "license": "MIT"
 }
