@@ -16,7 +16,7 @@ Usage: sqliteproxy [options]
 Options:
   --db: DB File path
     (default: ":memory:")
-  --[no]readonly: Open the database as readonly
+  --[no]readonly: Open the database for readonly
     (default: false)
   --port: TCP Port to listen on
     (default: 2048)

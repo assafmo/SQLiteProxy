@@ -2,7 +2,7 @@
 
 const flags = require('flags');
 flags.defineString('db', ':memory:', 'DB File path');
-flags.defineBoolean('readonly', false, 'Open the database as readonly');
+flags.defineBoolean('readonly', false, 'Open the database for readonly');
 flags.defineNumber('port', 2048, 'TCP Port to listen on');
 flags.parse();
 
