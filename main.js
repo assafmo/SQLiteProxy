@@ -11,23 +11,7 @@ console.log('readonly', '=', flags.get('readonly'))
 console.log('port', '=', flags.get('port'))
 
 const sqlite3 = require('sqlite3');
-const sqliteMode = flags.get('readonly') === true ? sqlite3.OPEN_READONLY : null;
-
-const db = new sqlite3.Database(flags.get('db'), sqliteMode);
-
-function gracefulExit(signal) {
-    return () => db.close(err => {
-        if (err) {
-            console.error('got', signal)
-            console.error(err)
-            process.exit(1);
-        } else {
-            process.exit(0);
-        }
-    });
-}
-process.on('SIGINT', gracefulExit('SIGINT'));
-process.on('SIGTERM', gracefulExit('SIGTERM'));
+const sqliteMode = flags.get('readonly') === true ? sqlite3.OPEN_READONLY : sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE;
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -42,12 +26,21 @@ function getSqlExecutor(httpRequestFieldName) {
         if (!req[httpRequestFieldName].sql)
             return res.send([]);
 
-        db.all(req[httpRequestFieldName].sql, function (err, rows) {
+        const db = new sqlite3.Database(flags.get('db'), sqliteMode, err => {
             if (err) {
-                res.status(400);
+                res.status(500);
                 return res.send(err);
             }
-            res.send(rows);
+
+            db.all(req[httpRequestFieldName].sql, (err, rows) => {
+                db.close();
+
+                if (err) {
+                    res.status(400);
+                    return res.send(err);
+                }
+                res.send(rows);
+            });
         });
     }
 }
