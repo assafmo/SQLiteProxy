@@ -15,7 +15,7 @@ Usage: sqliteproxy [options]
 
 Options:
   --db: DB File path
-    (default: ":memory:")
+    (default: "")
   --[no]readonly: Open the database for readonly
     (default: false)
   --port: TCP Port to listen on
@@ -98,34 +98,5 @@ $ fg
 ^C
 ```
 
-## In-Memory DB
-All work will be lost on process exit.
-```
-$ sqliteproxy 
-^Z
-[1]  + 23461 suspended sqliteproxy
-$ bg
-[1]  + 23461 continued sqliteproxy
-$ curl 'http://localhost:2048' -d sql='create table x(a)' -L
-[]
-$ curl 'http://localhost:2048' -d sql='insert into x values (1),(2),(3)' -L     
-[]
-$ curl 'http://localhost:2048' -d sql='select * from x' -L | jq .
-[
-  {
-    "a": 1
-  },
-  {
-    "a": 2
-  },
-  {
-    "a": 3
-  }
-]
-$ fg
-[1]  + 23461 running    sqliteproxy
-^C
-```
-
- # License
- [MIT](/LICENSE.md)
+# License
+[MIT](/LICENSE.md)
