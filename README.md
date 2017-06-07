@@ -6,7 +6,7 @@ This probably should not be exposed to end users. :-)  
 
 # Installation
 ```
-npm install -g sqliteproxy
+sudo npm install -g --unsafe-perm sqliteproxy
 ```
 
 # Options
