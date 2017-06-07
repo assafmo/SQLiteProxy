@@ -18,8 +18,8 @@ const bodyParser = require('body-parser');
 
 const app = express();
 app.use(require('compression')());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false, limit: '1mb' }));
+app.use(bodyParser.json({ limit: '1mb' }));
 
 function getSqlExecutor(httpRequestFieldName) {
     return function (req, res) {
