@@ -99,6 +99,8 @@ $ fg
 ```
 
 # Docker
+[https://hub.docker.com/r/assafmo/sqliteproxy](https://hub.docker.com/r/assafmo/sqliteproxy/)
+
 ```
 docker run -d -p 2048:2048 -v /path/to/my/db.sqlite:/data/db.sqlite assafmo/sqliteproxy
 ```
