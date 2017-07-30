@@ -98,5 +98,13 @@ $ fg
 ^C
 ```
 
+# Docker
+```
+docker run -d -p 2048:2048 -v /path/to/my/db.sqlite:/data/db.sqlite assafmo/sqliteproxy
+```
+```
+docker run -d -p 2048:2048 -v /path/to/my/db.sqlite:/data/db.sqlite assafmo/sqliteproxy --readonly
+```
+
 # License
 [MIT](/LICENSE.md)
