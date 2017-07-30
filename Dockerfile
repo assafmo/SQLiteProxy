@@ -9,4 +9,3 @@ EXPOSE 2048
 
 ENTRYPOINT ["node", "/src/main.js", "--db", "/data/db.sqlite", "--port", "2048"]
 
-
