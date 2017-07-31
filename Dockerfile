@@ -1,11 +1,11 @@
 FROM node:latest
 
-RUN mkdir /src
-COPY main.js /src
-COPY package.json /src
-COPY package-lock.json /src
+RUN mkdir /src/
+COPY main.js /src/
+COPY package.json /src/
+COPY package-lock.json /src/
 
-RUN cd /src; npm install
+RUN cd /src/; npm install
 
 EXPOSE 2048
 
