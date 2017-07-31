@@ -20,6 +20,11 @@ const app = express();
 app.use(require('compression')());
 app.use(bodyParser.urlencoded({ extended: false, limit: '1mb' }));
 app.use(bodyParser.json({ limit: '1mb' }));
+app.use(function (req, res, next) {
+    req.connection.setTimeout(2 * 60 * 1000); // 2 minutes
+    res.connection.setTimeout(2 * 60 * 1000); // 2 minutes
+    next();
+});
 
 function getSqlExecutor(httpRequestFieldName) {
     return function (req, res) {
