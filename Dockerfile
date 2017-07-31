@@ -2,8 +2,7 @@ FROM node:latest
 
 RUN mkdir /src/
 COPY main.js /src/
-COPY package.json /src/
-COPY package-lock.json /src/
+COPY package*.json /src/
 
 RUN cd /src/; npm install
 
