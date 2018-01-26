@@ -109,4 +109,4 @@ docker run -d -p 2048:2048 -v /path/to/my/db.sqlite:/data/db.sqlite assafmo/sqli
 ```
 
 # License
-[MIT](/LICENSE.md)
+[MIT](/LICENSE)
