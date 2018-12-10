@@ -2,9 +2,9 @@ FROM node:latest
 
 RUN mkdir /src/
 COPY main.js /src/
-COPY package*.json /src/
+COPY package.json yarn.lock /src/
 
-RUN cd /src/; npm install
+RUN cd /src/; yarn install --pure-lockfile
 
 EXPOSE 2048
 
