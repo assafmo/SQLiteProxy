@@ -110,11 +110,11 @@ $ fg
 [https://hub.docker.com/r/assafmo/sqliteproxy](https://hub.docker.com/r/assafmo/sqliteproxy/)
 
 ```
-docker run -d -p 2048:2048 -v /path/to/my/db.sqlite:/data/db.sqlite assafmo/sqliteproxy
+docker run -d -p 2048:2048 -v /path/to/my/db/dir/:/data/ assafmo/sqliteproxy --db /data/my.db
 ```
 
 ```
-docker run -d -p 2048:2048 -v /path/to/my/db.sqlite:/data/db.sqlite assafmo/sqliteproxy --readonly
+docker run -d -p 2048:2048 -v /path/to/my/db/dir/:/data/ assafmo/sqliteproxy --readonly --db /data/my.db
 ```
 
 # License
