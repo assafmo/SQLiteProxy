@@ -34,10 +34,11 @@ function getSqlExecutor(httpRequestFieldName) {
 
     let db;
     try {
-      db = new Database(flags.get("db"), {
-        readonly: flags.get("readonly")
-      });
-      db.pragma("journal_mode = WAL");
+      const readonly = flags.get("readonly");
+      db = new Database(flags.get("db"), { readonly });
+      if (!readonly) {
+        db.pragma("journal_mode = WAL");
+      }
     } catch (err) {
       res.status(400);
       res.send(`${err.code}: ${err.message}\n`);
