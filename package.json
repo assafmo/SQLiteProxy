@@ -29,6 +29,6 @@
   },
   "license": "MIT",
   "scripts": {
-    "build-docker": "docker build -t assafmo/sqliteproxy:\"$(jq -r .version package.json)\" ."
+    "build-docker": "VER=$(jq -r .version package.json); docker build -t assafmo/sqliteproxy:\"$VER\" .; docker tag assafmo/sqliteproxy:\"$VER\" assafmo/sqliteproxy:latest"
   }
 }
