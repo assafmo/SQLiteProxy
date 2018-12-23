@@ -27,5 +27,8 @@
   "bugs": {
     "url": "https://github.com/assafmo/SQLiteProxy/issues"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "build-docker": "docker build -t assafmo/sqliteproxy:\"$(jq -r .version package.json)\" ."
+  }
 }
