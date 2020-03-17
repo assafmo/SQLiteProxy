@@ -37,7 +37,7 @@ $ sqliteproxy --db ./examples/vt.db
 $ bg
 [1]  + 23436 continued sqliteproxy --db ./examples/vt.db
 $ curl 'http://localhost:2048' \
--d sql='select * from vt where md5 = "0060cc2e24f259545558ebd8834dc345"' -L | jq . # POST /
+-d sql="select * from vt where md5 = '0060cc2e24f259545558ebd8834dc345'" -L | jq . # POST /
 [
   {
     "md5": "0060cc2e24f259545558ebd8834dc345",
@@ -45,7 +45,7 @@ $ curl 'http://localhost:2048' \
   }
 ]
 $ curl 'http://localhost:2048' -G \
---data-urlencode sql='select * from vt where md5 = "0060cc2e24f259545558ebd8834dc345"' -L | jq . # GET /
+--data-urlencode sql="select * from vt where md5 = '0060cc2e24f259545558ebd8834dc345'" -L | jq . # GET /
 [
   {
     "md5": "0060cc2e24f259545558ebd8834dc345",
