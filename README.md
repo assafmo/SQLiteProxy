@@ -7,7 +7,7 @@ This probably should not be exposed to end users. :-)
 
 # Installation
 
-```
+```bash
 npm install -g sqliteproxy
 ```
 
@@ -24,13 +24,15 @@ Options:
   --port: TCP Port to listen on
     (default: 2048)
     (a number)
+  --cors: CORS URLs to allow requests from
+    (default: [])
 ```
 
 # Usage examples
 
 ## Existing DB
 
-```
+```console
 $ sqliteproxy --db ./examples/vt.db
 ^Z
 [1]  + 23436 suspended sqliteproxy --db ./examples/vt.db
@@ -63,7 +65,7 @@ $ fg
 
 ## Read only
 
-```
+```console
 $ sqliteproxy --db ./examples/vt.db --readonly
 ^Z
 [1]  + 23447 suspended sqliteproxy --db ./examples/vt.db --readonly
@@ -78,7 +80,7 @@ $ fg
 
 ## New DB
 
-```
+```console
 $ sqliteproxy --db myNewDb.sqlite
 ^Z
 [1]  + 23453 suspended sqliteproxy --db myNewDb.sqlite
@@ -105,18 +107,32 @@ $ fg
 ^C
 ```
 
+## CORS
+
+```console
+$ sqliteproxy --db myNewDb.sqlite --cors http://example1.com --cors http://example2.com
+```
+
 # Docker
 
 [https://hub.docker.com/r/assafmo/sqliteproxy](https://hub.docker.com/r/assafmo/sqliteproxy/)
 
 ```
+
 docker run -d -p 2048:2048 -v /path/to/my/db/dir/:/data/ assafmo/sqliteproxy --db /data/my.db
+
 ```
 
 ```
+
 docker run -d -p 2048:2048 -v /path/to/my/db/dir/:/data/ assafmo/sqliteproxy --readonly --db /data/my.db
+
 ```
 
 # License
 
 [MIT](/LICENSE)
+
+```
+
+```
