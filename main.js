@@ -47,11 +47,9 @@ function getSqlExecutor(httpRequestFieldName) {
   return function (req, res) {
     const sql = req[httpRequestFieldName].sql;
     let params = [];
-    if (httpRequestFieldName === "body" && req.is('application/json'))
-    {
+    if (httpRequestFieldName === "body" && req.is("application/json")) {
       params = req[httpRequestFieldName].params;
-      if (params == undefined || params == null)
-      {
+      if (params == undefined || params == null) {
         params = [];
       }
     }
@@ -61,11 +59,12 @@ function getSqlExecutor(httpRequestFieldName) {
 
     let db;
     try {
-      if (!Array.isArray(params))
-      {
-        var err = new Error("'params' element in http request body must be an array!");
-        err["code"] = 10000;
-        throw err;
+      if (!Array.isArray(params)) {
+        res.status(400);
+        res.send(
+          `${err.code}: 'params' element in http request body must be an array!\n`
+        );
+        return;
       }
       const readonly = flags.get("readonly");
       db = new Database(flags.get("db"), { readonly });
@@ -82,10 +81,10 @@ function getSqlExecutor(httpRequestFieldName) {
     let rows = [];
     try {
       if (sql.toLowerCase().includes("select")) {
-        var stmt = db.prepare(sql);
+        const stmt = db.prepare(sql);
         rows = stmt.all(params);
       } else {
-        var stmt = db.prepare(sql);
+        const stmt = db.prepare(sql);
         stmt.run(params);
       }
     } catch (err) {

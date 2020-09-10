@@ -107,12 +107,14 @@ $ fg
 ^C
 ```
 
-## Parameterized Queries 
+## Parameterized Queries
+
 Must use HTTP POST with content-type=application/json. 'params' element must be an array in request body
+
 ```console
-$ sqliteproxy --db currenttime.sqlite
-$ curl -i -X POST -H "Content-Type: application/json" -d "{\"sql\":\"select DATETIME(?) AS UTC_ISO\",\"params\":[\"now\"]}" http://localhost:2048
-$ [{"UTC_ISO":"2020-09-10 02:06:02"}]
+$ sqliteproxy --db currenttime.sqlite &
+$ curl -H "Content-Type: application/json" -d '{"sql":"select DATETIME(?) AS UTC_ISO","params":["now"]}' http://localhost:2048
+[{"UTC_ISO":"2020-09-10 02:06:02"}]
 ```
 
 ## CORS
