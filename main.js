@@ -46,12 +46,27 @@ if (flags.get("cors").length > 0) {
 function getSqlExecutor(httpRequestFieldName) {
   return function (req, res) {
     const sql = req[httpRequestFieldName].sql;
+    let params = [];
+    if (httpRequestFieldName === "body" && req.is('application/json'))
+    {
+      params = req[httpRequestFieldName].params;
+      if (params == undefined || params == null)
+      {
+        params = [];
+      }
+    }
     if (!sql) {
       return res.send([]);
     }
 
     let db;
     try {
+      if (!Array.isArray(params))
+      {
+        var err = new Error("'params' element in http request body must be an array!");
+        err["code"] = 10000;
+        throw err;
+      }
       const readonly = flags.get("readonly");
       db = new Database(flags.get("db"), { readonly });
       if (!readonly) {
@@ -67,9 +82,11 @@ function getSqlExecutor(httpRequestFieldName) {
     let rows = [];
     try {
       if (sql.toLowerCase().includes("select")) {
-        rows = db.prepare(sql).all();
+        var stmt = db.prepare(sql);
+        rows = stmt.all(params);
       } else {
-        db.prepare(sql).run();
+        var stmt = db.prepare(sql);
+        stmt.run(params);
       }
     } catch (err) {
       res.status(400);
