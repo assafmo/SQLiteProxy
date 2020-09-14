@@ -12,7 +12,7 @@ console.log("db", "=", flags.get("db"));
 console.log("readonly", "=", flags.get("readonly"));
 console.log("port", "=", flags.get("port"));
 console.log("cors", "=", flags.get("cors").join(", ") || "false");
-console.log("requestlimit", "=", flags.get("requestlimit"))
+console.log("requestlimit", "=", flags.get("requestlimit"));
 
 const Database = require("better-sqlite3");
 
@@ -21,7 +21,9 @@ const bodyParser = require("body-parser");
 
 const app = express();
 app.use(require("compression")());
-app.use(bodyParser.urlencoded({ extended: false, limit: flags.get("requestlimit") }));
+app.use(
+  bodyParser.urlencoded({ extended: false, limit: flags.get("requestlimit") })
+);
 app.use(bodyParser.json({ limit: "1mb" }));
 app.use(function (req, res, next) {
   req.connection.setTimeout(2 * 60 * 1000); // 2 minutes
@@ -47,14 +49,11 @@ if (flags.get("cors").length > 0) {
 
 function getSqlExecutor(httpRequestFieldName) {
   return function (req, res) {
-
     let blobtype = req[httpRequestFieldName].blobtype;
-    if (blobtype == undefined || blobtype == null)
-    {
+    if (blobtype == undefined || blobtype == null) {
       blobtype = "base64"; //default http blob handling to base64 if blobtype queryparam/bodyparam is missing
     }
-    if ((typeof blobtype) != "string")
-    {
+    if (typeof blobtype != "string") {
       res.status(400);
       res.send(
         `${res.statusCode}: 'blobtype' element mandatory in http request ${httpRequestFieldName} must be string value 'base64' or 'array'!\n`
@@ -62,8 +61,7 @@ function getSqlExecutor(httpRequestFieldName) {
       return;
     }
     blobtype = blobtype.toLowerCase().trim();
-    if (blobtype != "base64" && blobtype != "array")
-    {
+    if (blobtype != "base64" && blobtype != "array") {
       res.status(400);
       res.send(
         `${res.statusCode}: 'blobtype' element mandatory in http request ${httpRequestFieldName} must be string value 'base64' or 'array'!\n`
@@ -86,7 +84,7 @@ function getSqlExecutor(httpRequestFieldName) {
         );
         return;
       }
-      
+
       if (blobtype === "base64") {
         /********************************************************************************** 
         Enumerate through sqlite parameters and if of them is a blob param
@@ -97,26 +95,22 @@ function getSqlExecutor(httpRequestFieldName) {
         for (let i = 0; i < params.length; i++) {
           let param = params[i];
           //if the parameter is an object, assume it's a blob parameter
-          if (typeof param === 'object' && param !== null) {
-
-            if (param.hasOwnProperty("data"))
-            {
+          if (typeof param === "object" && param !== null) {
+            if (param.hasOwnProperty("data")) {
               var data = param.data;
               let buff = null;
               if (typeof Buffer.from === "function") {
                 // Node 5.10+
-                buff = Buffer.from(data, 'base64');
-              }
-              else {
+                buff = Buffer.from(data, "base64");
+              } else {
                 // older Node versions, now deprecated
-                buff = new Buffer(data, 'base64');
+                buff = new Buffer(data, "base64");
               }
               params[i] = buff;
             }
           }
         }
-      }
-      else if (blobtype === "array") {
+      } else if (blobtype === "array") {
         /********************************************************************************** 
         Enumerate through sqlite parameters and if of them is a blob param
         then convert the param to a buffer.
@@ -126,16 +120,14 @@ function getSqlExecutor(httpRequestFieldName) {
         for (let i = 0; i < params.length; i++) {
           let param = params[i];
           //if the parameter is an object, assume it's a blob parameter
-          if (typeof param === 'object' && param !== null) {
-            if (param.hasOwnProperty("data"))
-            {
+          if (typeof param === "object" && param !== null) {
+            if (param.hasOwnProperty("data")) {
               var data = param.data;
               let buff = null;
               if (typeof Buffer.from === "function") {
                 // Node 5.10+
                 buff = Buffer.from(data);
-              }
-              else {
+              } else {
                 // older Node versions, now deprecated
                 buff = new Buffer(data);
               }
@@ -187,8 +179,7 @@ function getSqlExecutor(httpRequestFieldName) {
     db.close();
 
     //if blobtype = base64, enumerate through the rows/fields and convert any buffer fields found to base64 string
-    if (blobtype == "base64")
-    {
+    if (blobtype == "base64") {
       for (let i = 0; i < rows.length; i++) {
         let row = rows[i];
 
@@ -196,17 +187,16 @@ function getSqlExecutor(httpRequestFieldName) {
         let fieldcount = 0;
         for (var prop in row) {
           if (Object.prototype.hasOwnProperty.call(row, prop)) {
-              fieldcount ++;
+            fieldcount++;
           }
         }
 
         //enumerate through fields
-        for (let j = 0; j < fieldcount; j++)
-        {
+        for (let j = 0; j < fieldcount; j++) {
           let fieldname = Object.keys(row)[j];
           let fielddata = row[fieldname];
           if (Buffer.isBuffer(fielddata)) {
-            let base64data = fielddata.toString('base64');
+            let base64data = fielddata.toString("base64");
             rows[i][fieldname] = base64data;
           }
         }

@@ -121,7 +121,7 @@ $ curl -H "Content-Type: application/json" -d '{"sql":"select DATETIME(?) AS UTC
 
 ## BLOB Handling
 
-Blobs via http POST/GET can be treated as byte arrays or base64-encoded text. This is handled via the blobtype variable in the HTTP GET request, or a blobtype object member in the request body for an HTTP POST. Allowable values for blobtype are "base64" and "array". If blobtype is omitted, "base64" is the default. 
+Blobs via http POST/GET can be treated as byte arrays or base64-encoded text. This is handled via the blobtype variable in the HTTP GET request, or a blobtype object member in the request body for an HTTP POST. Allowable values for blobtype are "base64" and "array". If blobtype is omitted, "base64" is the default.
 
 This also affects how your parameterized SQLite statements are sent to the server. BLOB query parameters must be structured as {"data": value}, whereas other parameter types (e.g. text, numberic) are treated as primitives in the params array (see exables below).
 
@@ -140,7 +140,7 @@ GET http://localhost:2048?sql=select BLOB_FIELD from BLOB_TABLE&blobtype=array
 ###############################################################################
 
 POST (application/json) http://localhost:2048
-BODY: 
+BODY:
 {
     "blobtype": "base64",
     "sql": "insert into BLOB_TABLE(KEY,BLOB_FIELD) values (?,?)",
@@ -151,7 +151,7 @@ BODY:
 ###############################################################################
 
 POST (application/json) http://localhost:2048
-BODY: 
+BODY:
 {
     "blobtype": "array",
     "sql": "insert into BLOB_TABLE(KEY,BLOB_FIELD) values (?,?)",
