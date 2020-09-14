@@ -26,6 +26,8 @@ Options:
     (a number)
   --cors: CORS URLs to allow requests from
     (default: [])
+  --requestlimit: request body limit for HTTP POSTs
+    (default: "1mb")
 ```
 
 # Usage examples
@@ -115,6 +117,48 @@ Must use HTTP POST with content-type=application/json. 'params' element must be 
 $ sqliteproxy --db currenttime.sqlite &
 $ curl -H "Content-Type: application/json" -d '{"sql":"select DATETIME(?) AS UTC_ISO","params":["now"]}' http://localhost:2048
 [{"UTC_ISO":"2020-09-10 02:06:02"}]
+```
+
+## BLOB Handling
+
+Blobs via http POST/GET can be treated as byte arrays or base64-encoded text. This is handled via the blobtype variable in the HTTP GET request, or a blobtype object member in the request body for an HTTP POST. Allowable values for blobtype are "base64" and "array". If blobtype is omitted, "base64" is the default. 
+
+This also affects how your parameterized SQLite statements are sent to the server. BLOB query parameters must be structured as {"data": value}, whereas other parameter types (e.g. text, numberic) are treated as primitives in the params array (see exables below).
+
+```
+# EXAMPLES
+###############################################################################
+
+GET http://localhost:2048?sql=select BLOB_FIELD from BLOB_TABLE&blobtype=base64
+>> returns BLOB fields as base64 strings
+
+###############################################################################
+
+GET http://localhost:2048?sql=select BLOB_FIELD from BLOB_TABLE&blobtype=array
+>> returns BLOB fields as Buffer objects
+
+###############################################################################
+
+POST (application/json) http://localhost:2048
+BODY: 
+{
+    "blobtype": "base64",
+    "sql": "insert into BLOB_TABLE(KEY,BLOB_FIELD) values (?,?)",
+    "params": [1,{"data": "base64string"}]
+}
+>> base64 data is automatically converted to buffers before inserting the record
+
+###############################################################################
+
+POST (application/json) http://localhost:2048
+BODY: 
+{
+    "blobtype": "array",
+    "sql": "insert into BLOB_TABLE(KEY,BLOB_FIELD) values (?,?)",
+    "params": [1,{"data": bytearray[]}]
+}
+>> byte data is converted to buffer before inserting the record
+
 ```
 
 ## CORS
