@@ -1,6 +1,6 @@
 {
   "name": "sqliteproxy",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "HTTP JSON Proxy for SQLite",
   "main": "main.js",
   "bin": {
