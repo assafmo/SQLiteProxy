@@ -97,7 +97,7 @@ function getSqlExecutor(httpRequestFieldName) {
           //if the parameter is an object, assume it's a blob parameter
           if (typeof param === "object" && param !== null) {
             if (param.hasOwnProperty("data")) {
-              var data = param.data;
+              const data = param.data;
               let buff = null;
               if (typeof Buffer.from === "function") {
                 // Node 5.10+
@@ -122,7 +122,7 @@ function getSqlExecutor(httpRequestFieldName) {
           //if the parameter is an object, assume it's a blob parameter
           if (typeof param === "object" && param !== null) {
             if (param.hasOwnProperty("data")) {
-              var data = param.data;
+              const data = param.data;
               let buff = null;
               if (typeof Buffer.from === "function") {
                 // Node 5.10+
@@ -185,7 +185,7 @@ function getSqlExecutor(httpRequestFieldName) {
 
         //get field count for row
         let fieldcount = 0;
-        for (var prop in row) {
+        for (const prop in row) {
           if (Object.prototype.hasOwnProperty.call(row, prop)) {
             fieldcount++;
           }
